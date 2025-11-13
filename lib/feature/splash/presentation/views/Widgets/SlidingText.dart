@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+
+class Slidingtext extends StatelessWidget {
+  const Slidingtext({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: slidingAnimation,
+      builder:(context, child) =>  SlideTransition(
+        position: slidingAnimation,
+        child: const Text("Read Free Book", textAlign: TextAlign.center),
+      ),
+    );
+  }
+}
