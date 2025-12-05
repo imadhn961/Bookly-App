@@ -1,9 +1,7 @@
-import 'package:booklyapp/Constant.dart';
 import 'package:booklyapp/core/utils/AssetsData.dart';
-import 'package:booklyapp/feature/home/presentation/view/home_view.dart';
 import 'package:booklyapp/feature/splash/presentation/views/Widgets/SlidingText.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class Booklyhomeview extends StatefulWidget {
   const Booklyhomeview({super.key});
@@ -24,11 +22,12 @@ class _BooklyhomeviewState extends State<Booklyhomeview>
   }
 
   void GotoHomePage() {
-    Future.delayed( const Duration(seconds: 4),() {
-      Get.to(()=>HomeView(),transition: Transition.fade , duration: KtransitionDuration);
-    },);
+    Future.delayed(const Duration(seconds: 4), () {
+      // Get.to(()=>HomeView(),transition: Transition.fade , duration: KtransitionDuration);
+      // },);
+      GoRouter.of(context).pushReplacement('/HomeScreen');
+    });
   }
-
 
   @override
   void dispose() {
@@ -56,9 +55,8 @@ class _BooklyhomeviewState extends State<Booklyhomeview>
     );
     slidingAnimation = Tween<Offset>(
       begin: const Offset(0, 2),
-      end:const Offset(0, 0),
+      end: const Offset(0, 0),
     ).animate(animationController!);
     animationController!.forward();
   }
 }
-
