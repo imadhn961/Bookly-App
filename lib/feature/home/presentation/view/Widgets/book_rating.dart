@@ -5,7 +5,6 @@ import '../../../../../core/utils/style.dart';
 
 class BookRating extends StatelessWidget {
   const BookRating({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Row(

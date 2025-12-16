@@ -1,5 +1,6 @@
 import 'package:booklyapp/core/Widgets/CustomButton.dart';
 import 'package:booklyapp/core/utils/style.dart';
+import 'package:booklyapp/feature/home/data/models/Book_model.dart';
 import 'package:booklyapp/feature/home/presentation/view/Widgets/CustomListViewItem.dart';
 import 'package:booklyapp/feature/home/presentation/view/Widgets/FeaturedListView.dart';
 import 'package:booklyapp/feature/home/presentation/view/Widgets/book_rating.dart';
@@ -11,8 +12,8 @@ import 'Custom_app_bar_book_details.dart';
 import 'SimilarBookListViewItem.dart';
 
 class BookDetailsViewBody extends StatelessWidget {
-  const BookDetailsViewBody({super.key});
-
+  const BookDetailsViewBody({super.key, required this.book});
+  final BookModel book ;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -27,26 +28,29 @@ class BookDetailsViewBody extends StatelessWidget {
                 const SafeArea(child: CustomAppbarBookDetails()),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: width * .2),
-                  child: const Customlistviewitem(),
+                  child: Customlistviewitem(imagUrl: book.volumeInfo.imageLinks!.thumbnail,),
                 ),
                 const SizedBox(height: 43),
                 Text(
-                  "The Jungle Book",
+                  book.volumeInfo.title!,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
                   style: Styles.textStyle30.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  "J.K. Rowling",
+                  book.volumeInfo.authors?[0] ?? '',
                   style: Styles.textStyle18.copyWith(
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.normal,
                     color: Colors.white.withValues(alpha: .7),
                   ),
+
                 ),
                 const SizedBox(height: 18),
                 const BookRating(),
                 const SizedBox(height: 37),
-                const BoxAction(),
+                 BoxAction(bookModel: book,),
                 const SizedBox(height: 50),
                 Align(
                   alignment: Alignment.topLeft,

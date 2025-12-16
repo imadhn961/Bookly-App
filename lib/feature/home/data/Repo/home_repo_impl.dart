@@ -15,7 +15,7 @@ class HomeRepoImpl implements HomeRepo {
     try {
       var data = await apiservice.get(
         endPoint:
-            'volumes?q=subject:Programming&filtering=free_ebooks&Sorting=newest',
+            'volumes?q=subject:Computer Science&filtering=free_ebooks&Sorting=newest',
       );
       List<BookModel> Books = [];
       for (var book in data['items']) {
@@ -23,19 +23,18 @@ class HomeRepoImpl implements HomeRepo {
       }
       return right(Books);
     } catch (e) {
-     if(e is DioError){
-       return left(ServerFailure.fromDioError(e));
-     }
-     return left(ServerFailure(e.toString()));
+      if (e is DioError) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, List<BookModel>>> fetchFeaturedBooks()async {
+  Future<Either<Failure, List<BookModel>>> fetchFeaturedBooks() async {
     try {
       var data = await apiservice.get(
-        endPoint:
-        'volumes?q=subject:Programming&filtering=free_ebooks',
+        endPoint: 'volumes?q=subject:Programming&filtering=free_ebooks',
       );
       List<BookModel> Books = [];
       for (var book in data['items']) {
@@ -43,7 +42,29 @@ class HomeRepoImpl implements HomeRepo {
       }
       return right(Books);
     } catch (e) {
-      if(e is DioError){
+      if (e is DioError) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<BookModel>>> FetchReleventBook({
+    required String categorie,
+  }) async {
+    try {
+      var data = await apiservice.get(
+        endPoint:
+            'volumes?q=subject:Programming&filtering=free_ebooks&Sorting=relevance',
+      );
+      List<BookModel> Books = [];
+      for (var book in data['items']) {
+        Books.add(BookModel.fromJson(book));
+      }
+      return right(Books);
+    } catch (e) {
+      if (e is DioError) {
         return left(ServerFailure.fromDioError(e));
       }
       return left(ServerFailure(e.toString()));
